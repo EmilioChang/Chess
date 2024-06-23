@@ -1,4 +1,4 @@
-import Square from "../Square.mjs";
+import Square from "../Game/Square.mjs";
 
 export default class Piece {
   constructor(isWhite) {

@@ -1,4 +1,4 @@
-import Square from "../Square.mjs";
+import Square from "../Game/Square.mjs";
 import Piece from "./Piece.mjs";
 
 export default class Queen extends Piece {
@@ -16,16 +16,18 @@ export default class Queen extends Piece {
   };
 
   isValidPath = (board, initialSquare, destinationSquare) => {
-    let min;
-    let max;
+    let stepX = destinationSquare.x > initialSquare.x ? 1 : -1;
+    let stepY = destinationSquare.y > initialSquare.y ? 1 : -1;
+
+    let x = initialSquare.x + stepX;
+    let y = initialSquare.y + stepY;
 
     if (this.isHorizontalMove(initialSquare, destinationSquare)) {
       let row = initialSquare.x;
-      min = Math.min(initialSquare.y, destinationSquare.y) + 1;
-      max = Math.max(initialSquare.y, destinationSquare.y);
 
-      for (; min < max; min++) {
-        if (board[row][min].piece != null) return false;
+      while (y != destinationSquare.y) {
+        if (board[row][y].piece) return false; // There is a piece blocking the path
+        y += stepY;
       }
 
       return true;
@@ -33,25 +35,18 @@ export default class Queen extends Piece {
 
     if (this.isStraightMove(initialSquare, destinationSquare)) {
       let col = initialSquare.y;
-      min = Math.min(initialSquare.x, destinationSquare.x) + 1;
-      max = Math.max(initialSquare.x, destinationSquare.x);
 
-      for (; min < max; min++) {
-        if (board[min][col].piece != null) return false;
+      while (x != destinationSquare.x) {
+        if (board[x][col].piece) return false; // There is a piece blocking the path
+        x += stepX;
       }
 
       return true;
     }
 
     if (this.isDiagonalMove(initialSquare, destinationSquare)) {
-      let stepX = destinationSquare.x > initialSquare.x ? 1 : -1;
-      let stepY = destinationSquare.y > initialSquare.y ? 1 : -1;
-
-      let x = initialSquare.x + stepX;
-      let y = initialSquare.y + stepY;
-
       while (x !== destinationSquare.x && y !== destinationSquare.y) {
-        if (board[x][y].Piece) {
+        if (board[x][y].piece) {
           return false; // There is a piece blocking the path
         }
         x += stepX;

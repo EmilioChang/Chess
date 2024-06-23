@@ -1,4 +1,4 @@
-import Square from "../Square.mjs";
+import Square from "../Game/Square.mjs";
 import Piece from "./Piece.mjs";
 
 export default class Pawn extends Piece {
@@ -11,30 +11,76 @@ export default class Pawn extends Piece {
     return this.isWhite ? "♟" : "♙";
   };
 
-  move = (initialSquare, destinationSquare) => {
-    //TODO
-    // 1) hacer que los peones no se puedan mover hacia adelante si hay una pieza en el
-    // camino y
-    // 2) hacer que puedan comer piezas diagonalmente
+  move = (board, initialSquare, destinationSquare) => {
     let dx = Math.abs(initialSquare.x - destinationSquare.x);
 
     if (dx > 2) return false;
-    if (dx == 2 && this.madeFirstMove) return false;
+    if (dx === 2) {
+      if (
+        this.madeFirstMove ||
+        this.isDiagonalMove(initialSquare, destinationSquare)
+      )
+        return false;
+    }
+
+    if (this.isForwardMove(initialSquare, destinationSquare)) {
+      return this.isValidPath(board, initialSquare, destinationSquare);
+    }
+
+    // check if player wants to take a pice
+    if (this.isDiagonalMove(initialSquare, destinationSquare)) {
+      //taking a piece means going 1 square diagonal. in other words,
+      // changing 'x' by -1 (if white) or +1 (if black)
+      // 'y' by -1 or +1
+
+      if (Math.abs(initialSquare.y - destinationSquare.y) !== 1) return false;
+
+      if (this.isWhite) {
+        if (initialSquare.x - 1 !== destinationSquare.x) return false;
+      } else {
+        if (initialSquare.x + 1 !== destinationSquare.x) return false;
+      }
+    } else {
+      return true;
+    }
 
     this.madeFirstMove = true;
+    return true;
+  };
 
-    switch (this.isWhite) {
-      // check if player wants to go backwards
-      case true: {
-        if (destinationSquare.x < initialSquare.x) return true;
-        break;
-      }
-      case false: {
-        if (destinationSquare.x > initialSquare.x) return true;
-        break;
-      }
+  isValidPath = (board, initialSquare, destinationSquare) => {
+    let dx = Math.abs(initialSquare.x - destinationSquare.x);
+
+    if (dx === 2) {
+      // If wants to move twice
+      // check if square at y+1 has a piece
+      let x = initialSquare.x + 1;
+      if (board[x][initialSquare.y].piece) return false;
+    }
+
+    if (destinationSquare.piece) return false;
+
+    return true;
+  };
+
+  isStraightMove = (initialSquare, destinationSquare) => {
+    return initialSquare.y === destinationSquare.y;
+  };
+
+  isForwardMove = (initialSquare, destinationSquare) => {
+    if (this.isWhite) {
+      if (destinationSquare.x < initialSquare.x) return true;
+    } else {
+      if (destinationSquare.x > initialSquare.x) return true;
     }
 
     return false;
+  };
+
+  isDiagonalMove = (initialSquare, destinationSquare) => {
+    let dx = Math.abs(initialSquare.x - destinationSquare.x);
+    let dy = Math.abs(initialSquare.y - destinationSquare.y);
+
+    return dx === dy;
   };
 }

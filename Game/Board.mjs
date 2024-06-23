@@ -1,10 +1,10 @@
 import Square from "./Square.mjs";
-import Rook from "./Pieces/Rook.mjs";
-import Knight from "./Pieces/Knight.mjs";
-import Bishop from "./Pieces/Bishop.mjs";
-import Queen from "./Pieces/Queen.mjs";
-import King from "./Pieces/King.mjs";
-import Pawn from "./Pieces/Pawn.mjs";
+import Rook from "../Pieces/Rook.mjs";
+import Knight from "../Pieces/Knight.mjs";
+import Bishop from "../Pieces/Bishop.mjs";
+import Queen from "../Pieces/Queen.mjs";
+import King from "../Pieces/King.mjs";
+import Pawn from "../Pieces/Pawn.mjs";
 
 export class Board {
   constructor() {
@@ -79,6 +79,3 @@ export class Board {
     console.log("  A B C D E F G H");
   };
 }
-
-let board = new Board();
-board.printBoard();

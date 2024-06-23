@@ -17,13 +17,6 @@ export default class Bishop extends Piece {
     return this.isValidPath(board, initialSquare, destinationSquare);
   };
 
-  isDiagonalMove = (initialSquare, destinationSquare) => {
-    let dx = Math.abs(initialSquare.x - destinationSquare.x);
-    let dy = Math.abs(initialSquare.y - destinationSquare.y);
-
-    return dx === dy;
-  };
-
   isValidPath = (initialSquare, destinationSquare) => {
     let stepX = destinationSquare.x > initialSquare.x ? 1 : -1;
     let stepY = destinationSquare.y > initialSquare.y ? 1 : -1;
@@ -32,7 +25,7 @@ export default class Bishop extends Piece {
     let y = initialSquare.y + stepY;
 
     while (x !== destinationSquare.x && y !== destinationSquare.y) {
-      if (board[x][y].Piece) {
+      if (board[x][y].piece) {
         return false; // There is a piece blocking the path
       }
       x += stepX;
@@ -40,5 +33,12 @@ export default class Bishop extends Piece {
     }
 
     return true;
+  };
+
+  isDiagonalMove = (initialSquare, destinationSquare) => {
+    let dx = Math.abs(initialSquare.x - destinationSquare.x);
+    let dy = Math.abs(initialSquare.y - destinationSquare.y);
+
+    return dx === dy;
   };
 }
