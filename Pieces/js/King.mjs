@@ -12,22 +12,17 @@ export default class King extends Piece {
   };
 
   move = (initialSquare, destinationSquare) => {
+    // TODO: Implement castling
+    if (destinationSquare.piece?.isWhite === this.isWhite) return false;
+
     let dx = Math.abs(destinationSquare.x - initialSquare.x);
     let dy = Math.abs(destinationSquare.y - initialSquare.y);
-    if (dx !== 1 && dy !== 1) return false;
+    if (dx > 1 && dy > 1) return false;
 
-    switch (isWhite) {
-      case true: {
-        if (destinationSquare.piece?.isWhite) return false;
-        if (destinationSquare.isCoveredByBlack()) return false;
-        break;
-      }
-
-      case false: {
-        if (!destinationSquare.piece?.isWhite) return false;
-        if (destinationSquare.isCoveredByWhite()) return false;
-        break;
-      }
+    if (this.isWhite) {
+      if (destinationSquare.isCoveredByBlack()) return false;
+    } else {
+      if (destinationSquare.isCoveredByWhite()) return false;
     }
 
     return true;
@@ -35,9 +30,5 @@ export default class King extends Piece {
 
   castle = () => {
     this.canCastle = false;
-  };
-
-  isCastlingDone = () => {
-    return this.canCastle;
   };
 }

@@ -17,7 +17,7 @@ export default class Bishop extends Piece {
     return this.isValidPath(board, initialSquare, destinationSquare);
   };
 
-  isValidPath = (initialSquare, destinationSquare) => {
+  isValidPath = (board, initialSquare, destinationSquare) => {
     let stepX = destinationSquare.x > initialSquare.x ? 1 : -1;
     let stepY = destinationSquare.y > initialSquare.y ? 1 : -1;
 

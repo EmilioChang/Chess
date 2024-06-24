@@ -11,23 +11,10 @@ export default class Knight extends Piece {
   };
 
   move = (initialSquare, destinationSquare) => {
+    if (destinationSquare.piece?.isWhite === this.isWhite) return false;
     let dx = Math.abs(destinationSquare.x - initialSquare.x);
     let dy = Math.abs(destinationSquare.y - initialSquare.y);
     if (dx * dy !== 2) return false;
-
-    switch (this.isWhite) {
-      case true: {
-        if (destinationSquare.piece?.isWhite) return false;
-
-        break;
-      }
-
-      case false: {
-        if (!destinationSquare.piece?.isWhite) return false;
-
-        break;
-      }
-    }
 
     return true;
   };

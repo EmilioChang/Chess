@@ -1,4 +1,3 @@
-import Square from "../Game/Square.mjs";
 import Piece from "./Piece.mjs";
 
 export default class Rook extends Piece {
