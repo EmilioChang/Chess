@@ -1,6 +1,6 @@
 # Chess Game
 
-Simple chess game with a GUI made with Javascript.
+Simple chess game with a GUI made with Python and auxiliary backend with Javascript.
 
 ## How moves are calculated
 
