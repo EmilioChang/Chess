@@ -35,7 +35,7 @@ class Game:
                     col = int((x - edges_offset) // tile_size_width)
                     self.destination_coordenates = (row, col)
 
-                    if self.moving_piece.is_white == self.whites_turn:
+                    if self.moving_piece and self.moving_piece.is_white == self.whites_turn:
                         if self.board.move_piece(self.start_coordenates, self.destination_coordenates):
                             self.whites_turn = not self.whites_turn
 

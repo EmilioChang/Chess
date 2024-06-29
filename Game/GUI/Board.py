@@ -60,7 +60,7 @@ class Board:
         valid_move = None
 
         if type(piece).__name__ == "NoneType":
-            return
+            return False
         
         if type(piece).__name__ == "Knight":
             valid_move = piece.move(initial_square, destination_square)
