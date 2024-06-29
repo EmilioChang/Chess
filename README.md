@@ -2,7 +2,26 @@
 
 Simple chess game with a GUI made with Python and auxiliary backend with Javascript.
 
-## How moves are calculated
+# Installation
+
+## Run the `setup.sh` script to install dependencies
+
+```bash
+chmod +x setup.sh
+./setup.sh
+```
+## Run the `run.sh` script
+
+```bash
+chmod +x run.sh
+./run.sh
+```
+
+# How to play
+
+Drag the piece you want to move to the desired location. Clicking (and releasing) the piece, and then clicking the destination square **will not** work. 
+
+# How moves are calculated
 
 ## Rook
 
