@@ -1,25 +1,30 @@
-import Piece
+from .Piece import Piece
+from ..GUI import Utils
 
 class Pawn(Piece):
-    made_first_move = False
-
     def __init__(self, is_white):
         super().__init__(is_white)
+        self.made_first_move = False
+
+    def piece_image(self):
+        if self.is_white:
+            return Utils.pieces["wp"]
+        else:
+            return Utils.pieces["bp"]
 
     def move(self, board, initial_square, destination_square):
         dx = abs(initial_square.x - destination_square.x)
         status = None
 
-        if destination_square.piece and destination_square.piece.is_white == self.is_white:
+        if destination_square.piece:
             status = False
         elif dx > 2:
             status = False
         elif dx == 2:
-            stauts = self.valid_double_move(board, initial_square, destination_square)
+            status = self.valid_double_move(board, initial_square, destination_square)
         else:
             status = self.valid_forward_move(initial_square, destination_square)
         
-
         self.made_first_move = True
         return status
     

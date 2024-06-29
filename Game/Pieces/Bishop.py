@@ -1,14 +1,21 @@
-import Piece
+from .Piece import Piece
+from ..GUI import Utils
 
 class Bishop(Piece):
-    def __init__(self, is_white) -> None:
+    def __init__(self, is_white):
         super().__init__(is_white)
+
+    def piece_image(self):
+        if self.is_white:
+            return Utils.pieces["wb"]
+        else:
+            return Utils.pieces["bb"]
 
     def move(self, board, initial_square, destination_square):
         if destination_square.piece and destination_square.piece.is_white == self.is_white:
             return False
         
-        if not self.is_diagonal_move(board, initial_square, destination_square):
+        if not self.is_diagonal_move(initial_square, destination_square):
             return False
         
         return self.is_valid_path(board, initial_square, destination_square)
@@ -33,3 +40,6 @@ class Bishop(Piece):
         dy = abs(initial_square.y - destination_square.y)
 
         return dx == dy
+
+if __name__ == "__main__":
+    print("This is the Bishop class")

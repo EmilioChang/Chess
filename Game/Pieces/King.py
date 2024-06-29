@@ -1,12 +1,18 @@
-import Piece
+from .Piece import Piece
+from ..GUI import Utils
 
 class King(Piece):
-    can_castle = True
-
     def __init__(self, is_white):
         super().__init__(is_white)
+        self.can_castle = True
 
-    def move(self, initial_square, destination_square):
+    def piece_image(self):
+        if self.is_white:
+            return Utils.pieces["wk"]
+        else:
+            return Utils.pieces["bk"]
+
+    def move(self, board, initial_square, destination_square):
         # TODO: Implement castling
         if destination_square.piece and destination_square.piece.is_white == self.is_white:
             return False
