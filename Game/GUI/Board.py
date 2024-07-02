@@ -10,7 +10,6 @@ class Board:
     def __init__(self):
         self.board = []
         self.board_image = "Game/GUI/imgs/empty_board.png"
-        self.board_dimensions = (786, 800) # TODO
         self.create_board()
 
     def create_board(self):
@@ -44,17 +43,11 @@ class Board:
         for i in range(8):
             self.board[1][i] = Square(Pawn(False), 1, i)
 
-    def get_board(self):
-        return self.board
-
-    def get_square(self, x: int, y: int):
-        return self.board[x][y]
-
     def set_square(self, x, y, piece):
         self.board[x][y] = Square(piece, x, y)
 
     def move_piece(self, start_coordenates, destination_coordenates):
-        piece = self.board[start_coordenates[0]][start_coordenates[1]].get_piece()
+        piece = self.board[start_coordenates[0]][start_coordenates[1]].piece
         initial_square = self.board[start_coordenates[0]][start_coordenates[1]]
         destination_square = self.board[destination_coordenates[0]][destination_coordenates[1]]
         valid_move = None
@@ -68,23 +61,8 @@ class Board:
             valid_move = piece.move(self.board, initial_square, destination_square)
         
         if valid_move:
-            self.board[destination_coordenates[0]][destination_coordenates[1]].set_piece(piece)
-            self.board[start_coordenates[0]][start_coordenates[1]].set_piece(None)
+            self.board[destination_coordenates[0]][destination_coordenates[1]].piece = piece
+            self.board[start_coordenates[0]][start_coordenates[1]].piece = None
             return True
         
         return False
-
-
-    def print_board(self):
-        for i in range(8):
-            row_string = f"{i + 1}"
-
-            for j in range(8):
-                try:
-                    piece_symbol = self.board[i][j].get_piece().piece_symbol()
-                except AttributeError:
-                    piece_symbol = "-"
-                row_string += f" {piece_symbol}"
-
-            print(row_string)
-        print("  A B C D E F G H")

@@ -4,6 +4,7 @@ from .Utils import *
 
 class Game:
     def __init__(self):
+        self.played_moves = []
         self.screen = pygame.display.set_mode((width_of_window, height_of_window))
         pygame.display.set_caption('Chess')
         self.board = Board()
@@ -27,7 +28,7 @@ class Game:
                     col = int((x - edges_offset) // tile_size_width)
                     self.start_coordenates = (row, col)
 
-                    self.moving_piece = self.board.get_square(row, col).get_piece()
+                    self.moving_piece = self.board.board[row][col].piece
 
                 if event.type == pygame.MOUSEBUTTONUP:
                     x, y = pygame.mouse.get_pos()
@@ -47,7 +48,7 @@ class Game:
         self.screen.blit(self.background_image, (0, 0))
         for row in range(8):
                 for col in range(8):
-                    piece = self.board.get_square(row, col).get_piece()
+                    piece = self.board.board[row][col].piece
                     if piece:
                         piece_image = pygame.image.load(piece.piece_image())
                         piece_width, piece_height = piece_image.get_size()

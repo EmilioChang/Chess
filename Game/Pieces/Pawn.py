@@ -14,14 +14,15 @@ class Pawn(Piece):
 
     def move(self, board, initial_square, destination_square):
         dx = abs(initial_square.x - destination_square.x)
+        dy = abs(initial_square.y - destination_square.y)
         status = None
 
-        if destination_square.piece:
-            status = False
-        elif dx > 2:
+        if dx > 2:
             status = False
         elif dx == 2:
             status = self.valid_double_move(board, initial_square, destination_square)
+        elif self.is_diagonal_move(initial_square, destination_square):
+            status = self.take(board, initial_square, destination_square)
         else:
             status = self.valid_forward_move(initial_square, destination_square)
         
@@ -32,8 +33,11 @@ class Pawn(Piece):
         if self.made_first_move:
             return False
         
+        if destination_square.piece and destination_square.piece.is_white == self.is_white:
+            return False
+        
         # Check if the pawn is moving diagonally
-        if initial_square.y != destination_square.y:
+        if self.is_diagonal_move(initial_square, destination_square):
             return False
         
         # Check if there are pieces on the way
@@ -47,7 +51,10 @@ class Pawn(Piece):
         return True
     
     def valid_forward_move(self, initial_square, destination_square):
-        if initial_square.y != destination_square.y:
+        if destination_square.piece:
+            return False
+        
+        if self.is_diagonal_move(initial_square, destination_square):
             return False
         
         if abs(initial_square.x - destination_square.x) != 1:
@@ -55,10 +62,36 @@ class Pawn(Piece):
         
         return True
     
-    def take(self):
-        # TODO
-        pass
+    def take(self, board, initial_square, destination_square):
+        # Check if moving diagonally or not
+        if not self.is_diagonal_move(initial_square, destination_square):
+            print("not diagonal")
+            return False
+        
+        # Check if there are pieces on the way
+        direction = -1 if self.is_white else 1
+        
+        if direction == -1:
+            if initial_square.x < destination_square.x:
+                return False
+        else:
+            if initial_square.x > destination_square.x:
+                return False
+
+        # Check if there's a piece on the destination square
+        if not destination_square.piece:
+            return False
+        else:
+            if destination_square.piece.is_white == self.is_white:
+                return False
+
+        return True
 
     def en_passant(self):
         # TODO
         pass
+
+    def is_diagonal_move(self, initial_square, destination_square):
+        dx = abs(initial_square.x - destination_square.x)
+        dy = abs(initial_square.y - destination_square.y)
+        return dx == dy
