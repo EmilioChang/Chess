@@ -4,22 +4,28 @@ Simple chess game with a GUI made with Python and auxiliary backend with Javascr
 
 # Installation
 
-## Run the `setup.sh` script to install dependencies
+## Install dependencies
+
+For **Debian-based** systems:
 
 ```bash
-chmod +x setup.sh
-./setup.sh
+sudo apt intall python3-pip -y
+pip install pygame
 ```
-## Run the `run.sh` script
 
-```bash
-chmod +x run.sh
-./run.sh
+Then execute the `run_linux.sh` script.
+
+For **Windows**:
+
+```bat
+pip install pygame
 ```
+
+Then execute the `run_windows.bat` script.
 
 # How to play
 
-Drag the piece you want to move to the desired location. Clicking (and releasing) the piece, and then clicking the destination square **will not** work. 
+***Drag*** the piece you want to move to the desired location. Clicking (and releasing) the piece, and then clicking the destination square **will not** work. 
 
 # How moves are calculated
 
