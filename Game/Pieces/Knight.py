@@ -10,15 +10,11 @@ class Knight(Piece):
             return Utils.pieces["wn"]
         else:
             return Utils.pieces["bn"]
+        
+    def piece_notation():
+        return "N"
 
     def move(self, initial_square, destination_square):
-        if destination_square.piece and destination_square.piece.is_white == self.is_white:
-            return False
-        
-        dx = abs(initial_square.x - destination_square.x)
-        dy = abs(initial_square.y - destination_square.y)
+        dx, dy = self.dxdy(initial_square, destination_square)
 
-        if dx * dy != 2:
-            return False
-        
-        return True
+        return not self.has_friendly_piece(destination_square) and (dx * dy == 2)

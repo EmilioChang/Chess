@@ -10,9 +10,12 @@ class Bishop(Piece):
             return Utils.pieces["wb"]
         else:
             return Utils.pieces["bb"]
+        
+    def piece_notation():
+        return "B"
 
     def move(self, board, initial_square, destination_square):
-        if destination_square.piece and destination_square.piece.is_white == self.is_white:
+        if self.has_friendly_piece(destination_square):
             return False
         
         if not self.is_diagonal_move(initial_square, destination_square):
@@ -34,12 +37,3 @@ class Bishop(Piece):
             y += step_y
 
         return True
-
-    def is_diagonal_move(self, initial_square, destination_square):
-        dx = abs(initial_square.x - destination_square.x)
-        dy = abs(initial_square.y - destination_square.y)
-
-        return dx == dy
-
-if __name__ == "__main__":
-    print("This is the Bishop class")

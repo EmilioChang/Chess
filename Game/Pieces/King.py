@@ -11,26 +11,24 @@ class King(Piece):
             return Utils.pieces["wk"]
         else:
             return Utils.pieces["bk"]
+        
+    def piece_notation():
+        return "K"
 
     def move(self, board, initial_square, destination_square):
-        # TODO: Implement castling
-        if destination_square.piece and destination_square.piece.is_white == self.is_white:
+        if self.has_friendly_piece(destination_square):
             return False
         
-        dx = abs(initial_square.x - destination_square.x)
-        dy = abs(initial_square.y - destination_square.y)
+        dx, dy = self.dxdy(initial_square, destination_square)
         
         if dx > 1 or dy > 1:
             return False
         
         if self.is_white:
-            if destination_square.is_covered_by_black():
-                return False
+            return not destination_square.is_covered_by_black
         else:
-            if destination_square.is_covered_by_white():
-                return False
-        
-        return True
+            return not destination_square.is_covered_by_white
     
     def castle(self):
+        # TODO
         self.can_castle = False

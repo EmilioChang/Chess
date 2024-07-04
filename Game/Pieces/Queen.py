@@ -10,11 +10,12 @@ class Queen(Piece):
             return Utils.pieces["wq"]
         else:
             return Utils.pieces["bq"]
+        
+    def piece_notation():
+        return "Q"
 
-    def move(self, board, initial_square, destination_square):
-        if destination_square.piece and destination_square.piece.is_white == self.is_white:
-            return False
-        return self.is_valid_path(board, initial_square, destination_square)
+    def move(self, board, initial_square, destination_square):       
+        return not self.has_friendly_piece(destination_square) and self.is_valid_path(board, initial_square, destination_square)
 
     def is_valid_path(self, board, initial_square, destination_square):
         step_x = 1 if destination_square.x > initial_square.x else -1
@@ -48,14 +49,3 @@ class Queen(Piece):
             return True
 
         return False
-
-    def is_diagonal_move(self, initial_square, destination_square):
-        dx = abs(initial_square.x - destination_square.x)
-        dy = abs(initial_square.y - destination_square.y)
-        return dx == dy
-
-    def is_horizontal_move(self, initial_square, destination_square):
-        return initial_square.x == destination_square.x
-
-    def is_straight_move(self, initial_square, destination_square):
-        return initial_square.y == destination_square.y

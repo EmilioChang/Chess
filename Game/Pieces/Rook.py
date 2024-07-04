@@ -10,11 +10,12 @@ class Rook(Piece):
             return Utils.pieces["wr"]
         else:
             return Utils.pieces["br"]
+        
+    def piece_notation():
+        return "R"
 
-    def move(self, board, initial_square, destination_square):
-        if destination_square.piece and destination_square.piece.is_white == self.is_white:
-            return False
-        return self.is_valid_path(board, initial_square, destination_square)
+    def move(self, board, initial_square, destination_square):        
+        return not self.has_friendly_piece(destination_square) and self.is_valid_path(board, initial_square, destination_square)
 
     def is_valid_path(self, board, initial_square, destination_square):
         if self.is_horizontal_move(initial_square, destination_square):
@@ -40,9 +41,3 @@ class Rook(Piece):
             return True
 
         return False
-
-    def is_horizontal_move(self, initial_square, destination_square):
-        return initial_square.x == destination_square.x
-
-    def is_straight_move(self, initial_square, destination_square):
-        return initial_square.y == destination_square.y
