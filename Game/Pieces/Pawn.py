@@ -33,7 +33,9 @@ class Pawn(Piece):
         else:
             status = False
         
-        self.made_first_move = True
+        if status:
+            self.made_first_move = True
+
         return status
     
     def valid_double_move(self, board, initial_square, destination_square):
@@ -41,7 +43,17 @@ class Pawn(Piece):
             return False
         
         # Check if the pawn is moving diagonally
+        """
+        Initially, I was doing this, but it doesn't work
+        because self.is_diagonal_move() checks if it's a "pure"
+        diagonal move (like a bishop), but this fails if you move
+        the pawn like a knight (which is also kinda diagonal), so it
+        returns False and it allows the move.
+
         if self.is_diagonal_move(initial_square, destination_square):
+            return False
+        """
+        if initial_square.y != destination_square.y:
             return False
         
         # Check if there are pieces on the way
