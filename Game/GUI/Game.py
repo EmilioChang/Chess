@@ -29,6 +29,7 @@ class Game:
                     self.start_coordenates = (row, col)
 
                     self.moving_piece = self.board.board[row][col].piece
+                    # print("1", self.moving_piece, self.start_coordenates)
 
                 if event.type == pygame.MOUSEBUTTONUP:
                     x, y = pygame.mouse.get_pos()
@@ -39,6 +40,7 @@ class Game:
                     if self.moving_piece and self.moving_piece.is_white == self.whites_turn:
                         if self.board.move_piece(self.start_coordenates, self.destination_coordenates):
                             self.whites_turn = not self.whites_turn
+                    # print("2", self.moving_piece, self.destination_coordenates)
 
             self.print_board()
 

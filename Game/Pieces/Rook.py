@@ -4,6 +4,7 @@ from ..GUI import Utils
 class Rook(Piece):
     def __init__(self, is_white):
         super().__init__(is_white)
+        self.can_castle = True
 
     def piece_image(self):
         if self.is_white:
@@ -14,7 +15,8 @@ class Rook(Piece):
     def piece_notation():
         return "R"
 
-    def move(self, board, initial_square, destination_square):        
+    def move(self, board, initial_square, destination_square):
+        self.can_castle = False
         return not self.has_friendly_piece(destination_square) and self.is_valid_path(board, initial_square, destination_square)
 
     def is_valid_path(self, board, initial_square, destination_square):

@@ -51,6 +51,7 @@ class Board:
         initial_square = self.board[start_coordenates[0]][start_coordenates[1]]
         destination_square = self.board[destination_coordenates[0]][destination_coordenates[1]]
         valid_move = None
+        is_castling_move = None
 
         if type(piece).__name__ == "NoneType":
             return False
@@ -58,11 +59,29 @@ class Board:
         if type(piece).__name__ == "Knight":
             valid_move = piece.move(initial_square, destination_square)
         else:
+            if type(piece).__name__ == "King" and piece.is_castling_move(initial_square, destination_square):
+                is_castling_move = True
             valid_move = piece.move(self.board, initial_square, destination_square)
         
         if valid_move:
+            if is_castling_move:
+                x = initial_square.x
+                y = initial_square.y
+                y_castling_direction = (1 if initial_square.y < destination_square.y else -1) + y
+                y_rook_position = (3 if initial_square.y < destination_square.y else -4) + y
+
+                # Move the Rook beside the King
+                rook = self.board[x][y_rook_position].piece
+                self.board[initial_square.x][y_castling_direction].piece = rook
+
+                # Remove the Rook from its initial square
+                self.board[initial_square.x][y_rook_position].piece = None
+
+                # King is moved on the next 2 lines
+
             self.board[destination_coordenates[0]][destination_coordenates[1]].piece = piece
             self.board[start_coordenates[0]][start_coordenates[1]].piece = None
+
             return True
         
         return False
