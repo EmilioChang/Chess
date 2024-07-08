@@ -11,7 +11,7 @@ class Queen(Piece):
         else:
             return Utils.pieces["bq"]
         
-    def piece_notation():
+    def piece_notation(self):
         return "Q"
 
     def move(self, board, initial_square, destination_square):       

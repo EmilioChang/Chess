@@ -1,11 +1,13 @@
 class Move():
-    def __init__(self):
-        self.initial_square = None
-        self.destination_square = None
+    def __init__(self, initial_square, destination_square):
+        self.initial_square = initial_square
+        self.destination_square = destination_square
         self.notation = None
 
-    def translate_move_to_notation(self, initial_square, destination_square):
-        piece1 = initial_square.piece
-        piece2 = destination_square.piece
-
-        
+        if destination_square.piece:
+            if type(destination_square.piece).__name__ == "Pawn":
+                self.notation = initial_square.name[0] + "x" + destination_square.name
+            else:
+                self.notation = initial_square.piece.piece_notation() + "x" + destination_square.name
+        else:
+            self.notation = initial_square.piece.piece_notation() + destination_square.name

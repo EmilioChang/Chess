@@ -12,7 +12,7 @@ class Rook(Piece):
         else:
             return Utils.pieces["br"]
         
-    def piece_notation():
+    def piece_notation(self):
         return "R"
 
     def move(self, board, initial_square, destination_square):

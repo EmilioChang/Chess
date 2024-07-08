@@ -12,8 +12,8 @@ class Pawn(Piece):
         else:
             return Utils.pieces["bp"]
         
-    def piece_notation():
-        pass
+    def piece_notation(self):
+        return ""
 
     def move(self, board, initial_square, destination_square):
         if self.has_friendly_piece(destination_square):

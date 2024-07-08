@@ -13,7 +13,7 @@ class King(Piece):
         else:
             return Utils.pieces["bk"]
         
-    def piece_notation():
+    def piece_notation(self):
         return "K"
 
     def move(self, board, initial_square, destination_square):
@@ -44,7 +44,6 @@ class King(Piece):
         if initial_square.x != destination_square.x:
             return False
         
-        print("castle")
 
         x = initial_square.x
         y = initial_square.y

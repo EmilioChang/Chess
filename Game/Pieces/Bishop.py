@@ -11,7 +11,7 @@ class Bishop(Piece):
         else:
             return Utils.pieces["bb"]
         
-    def piece_notation():
+    def piece_notation(self):
         return "B"
 
     def move(self, board, initial_square, destination_square):

@@ -11,7 +11,7 @@ class Knight(Piece):
         else:
             return Utils.pieces["bn"]
         
-    def piece_notation():
+    def piece_notation(self):
         return "N"
 
     def move(self, initial_square, destination_square):

@@ -16,40 +16,36 @@ class Board:
         for i in range(8):
             row = []
             for j in range(8):
-                row.append(Square(None, i, j))
+                # cast to char
+                row.append(Square(f"{chr(j + 97)}{8-i}", None, i, j)) # chr(65) = A
             self.board.append(row)
 
-        self.board[7][0] = Square(Rook(True), 7, 0)
-        self.board[7][1] = Square(Knight(True), 7, 1)
-        self.board[7][2] = Square(Bishop(True), 7, 2)
-        self.board[7][3] = Square(Queen(True), 7, 3)
-        self.board[7][4] = Square(King(True), 7, 4)
-        self.board[7][5] = Square(Bishop(True), 7, 5)
-        self.board[7][6] = Square(Knight(True), 7, 6)
-        self.board[7][7] = Square(Rook(True), 7, 7)
+        self.board[7][0] = Square("a1", Rook(True), 7, 0)
+        self.board[7][1] = Square("b1", Knight(True), 7, 1)
+        self.board[7][2] = Square("c1", Bishop(True), 7, 2)
+        self.board[7][3] = Square("d1", Queen(True), 7, 3)
+        self.board[7][4] = Square("e1", King(True), 7, 4)
+        self.board[7][5] = Square("f1", Bishop(True), 7, 5)
+        self.board[7][6] = Square("g1", Knight(True), 7, 6)
+        self.board[7][7] = Square("h1", Rook(True), 7, 7)
 
         for i in range(8):
-            self.board[6][i] = Square(Pawn(True), 6, i)
+            self.board[6][i] = Square(f"{chr(i+97)}2", Pawn(True), 6, i)
 
-        self.board[0][0] = Square(Rook(False), 0, 0)
-        self.board[0][1] = Square(Knight(False), 0, 1)
-        self.board[0][2] = Square(Bishop(False), 0, 2)
-        self.board[0][3] = Square(Queen(False), 0, 3)
-        self.board[0][4] = Square(King(False), 0, 4)
-        self.board[0][5] = Square(Bishop(False), 0, 5)
-        self.board[0][6] = Square(Knight(False), 0, 6)
-        self.board[0][7] = Square(Rook(False), 0, 7)
+        self.board[0][0] = Square("a8", Rook(False), 0, 0)
+        self.board[0][1] = Square("b8", Knight(False), 0, 1)
+        self.board[0][2] = Square("c8", Bishop(False), 0, 2)
+        self.board[0][3] = Square("d8", Queen(False), 0, 3)
+        self.board[0][4] = Square("e8", King(False), 0, 4)
+        self.board[0][5] = Square("f8", Bishop(False), 0, 5)
+        self.board[0][6] = Square("g8", Knight(False), 0, 6)
+        self.board[0][7] = Square("h8", Rook(False), 0, 7)
 
         for i in range(8):
-            self.board[1][i] = Square(Pawn(False), 1, i)
+            self.board[1][i] = Square(f"{chr(i+97)}7", Pawn(False), 1, i)
 
-    def set_square(self, x, y, piece):
-        self.board[x][y] = Square(piece, x, y)
-
-    def move_piece(self, start_coordenates, destination_coordenates):
-        piece = self.board[start_coordenates[0]][start_coordenates[1]].piece
-        initial_square = self.board[start_coordenates[0]][start_coordenates[1]]
-        destination_square = self.board[destination_coordenates[0]][destination_coordenates[1]]
+    def move_piece(self, initial_square, destination_square):
+        piece = self.board[initial_square.x][initial_square.y].piece
         valid_move = None
         is_castling_move = None
 
@@ -79,8 +75,8 @@ class Board:
 
                 # King is moved on the next 2 lines
 
-            self.board[destination_coordenates[0]][destination_coordenates[1]].piece = piece
-            self.board[start_coordenates[0]][start_coordenates[1]].piece = None
+            self.board[destination_square.x][destination_square.y].piece = piece
+            self.board[initial_square.x][initial_square.y].piece = None
 
             return True
         
